@@ -81,6 +81,11 @@
     <x-responsive-nav-link :href="route('veiculos.index')" :active="request()->routeIs('veiculos.*')">
         {{ __('Veículos') }}
     </x-responsive-nav-link>
+
+    <x-nav-link :href="route('manutencoes.index')" :active="request()->routeIs('manutencoes.*')">
+    {{ __('Manutenções') }}
+</x-nav-link>
+
 </div>
 
 
@@ -95,6 +100,13 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('manutencoes.index')" :active="request()->routeIs('manutencoes.*')">
+                    {{ __('Veículos') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('manutencoes.index')" :active="request()->routeIs('manutencoes.*')">
+                    {{ __('Manutenções') }}
+                </x-responsive-nav-link>
+
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

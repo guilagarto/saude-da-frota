@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VeiculoController;
+use App\Http\Controllers\ManutencaoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Cria automaticamente as rotas de Listar, Cadastrar, Editar, Atualizar e Deletar
     Route::resource('veiculos', VeiculoController::class);
+    Route::resource('manutencoes', ManutencaoController::class);
 });
 
 require __DIR__.'/auth.php';
