@@ -9,11 +9,28 @@ use Illuminate\Support\Facades\Auth;
 class VeiculoController extends Controller
 {
     // Listar veículos do usuário
-    public function index()
-    {
-        $veiculos = Auth::user()->veiculos ?? Veiculo::where('user_id', Auth::id())->get();
-        return view('veiculos.index', compact('veiculos'));
+   public function index(Request $request)
+{
+    // Inicia a consulta pegando apenas os veículos do usuário logado
+    $query = Veiculo::where('user_id', Auth::id());
+
+    // Se o usuário digitou algo no campo de busca/filtro
+    if ($request->has('search') && $request->search != '') {
+        $search = $request->search;
+        $query->where(function($q) use ($search) {
+            $q->where('placa', 'LIKE', "%{$search}%")
+              ->orWhere('numero', 'LIKE', "%{$search}%")
+              ->orWhere('modelo', 'LIKE', "%{$search}%")
+              ->orWhere('marca', 'LIKE', "%{$search}%");
+        });
     }
+
+    // Pega os resultados filtrados
+    $veiculos = $query->get();
+
+    return view('veiculos.index', compact('veiculos'));
+}
+
 
     // Tela de cadastro
     public function create()
@@ -79,4 +96,17 @@ class VeiculoController extends Controller
         $veiculo->delete();
         return redirect()->route('veiculos.index')->with('success', 'Veículo excluído com sucesso!');
     }
+    public function show(Veiculo $veiculo)
+{
+    // Segurança: Impede que um usuário veja o veículo de outro
+    if ($veiculo->user_id !== Auth::id()) {
+        abort(403);
+    }
+
+    // Carrega também o histórico de manutenções desse veículo específico
+    $veiculo->load('manutencoes');
+
+    return view('veiculos.show', compact('veiculo'));
+}
+
 }

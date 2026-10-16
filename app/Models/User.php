@@ -29,4 +29,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+        /**
+     * Relacionamento: Um usuário pode ter muitos veículos cadastrados.
+     */
+    public function veiculos(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Veiculo::class);
+    }
+
 }
