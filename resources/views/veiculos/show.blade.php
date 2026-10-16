@@ -34,10 +34,19 @@
             </div>
 
             <!-- Histórico de Manutenções Vinculado -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <h3 class="text-lg font-bold text-gray-800 mb-4">Histórico de Serviços deste Veículo</h3>
-                
-                @if($veiculo->manutencoes->isEmpty())
+           <!-- Procure por essa linha e adicione o bloco flex com o link -->
+<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+    <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-gray-800">Histórico de Serviços deste Veículo</h3>
+        <!-- Botão que envia o ID do veículo automaticamente para o formulário -->
+        <a href="{{ route('manutencoes.create', ['veiculo_id' => $veiculo->id]) }}" class="inline-flex items-center px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">
+            + Lançar Serviço
+        </a>
+    </div>
+    
+    @if($veiculo->manutencoes->isEmpty())
+...
+
                     <p class="text-gray-500 text-sm">Nenhuma manutenção lançada para este veículo ainda.</p>
                 @else
                     <table class="min-w-full divide-y divide-gray-200 text-sm">

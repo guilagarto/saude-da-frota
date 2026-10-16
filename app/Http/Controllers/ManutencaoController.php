@@ -32,16 +32,17 @@ class ManutencaoController extends Controller
     // Gravar a manutenção no banco de dados
     public function store(Request $request)
     {
-        $request->validate([
-            'veiculo_id' => 'required|exists:veiculos,id',
-            'tipo' => 'required|string|max:255',
-            'descricao' => 'nullable|string',
-            'data_realizada' => 'required|date',
-            'quilometragem_registro' => 'required|integer|min:0',
-            'custo' => 'required|numeric|min:0',
-            'proxima_data' => 'nullable|date|after:data_realizada',
-            'proxima_quilometragem' => 'nullable|integer|gt:quilometragem_registro',
-        ]);
+     $request->validate([
+    'veiculo_id' => 'required|exists:veiculos,id',
+    'tipo' => 'required|in:Inspeção,Preventiva,Corretiva', // Força a gravação de apenas uma das 3 sessões corretas
+    'descricao' => 'nullable|string',
+    'data_realizada' => 'required|date',
+    'quilometragem_registro' => 'required|integer|min:0',
+    'custo' => 'required|numeric|min:0',
+    'proxima_data' => 'nullable|date|after:data_realizada',
+    'proxima_quilometragem' => 'nullable|integer|gt:quilometragem_registro',
+]);
+
 
         // Validação de segurança: Garante que o veículo selecionado pertence ao usuário logado
         Veiculo::where('id', $request->veiculo_id)->where('user_id', Auth::id())->firstOrFail();
