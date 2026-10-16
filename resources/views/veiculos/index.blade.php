@@ -5,9 +5,11 @@
                 {{ __('Meus Veículos') }}
             </h2>
             <!-- O botão azul que estava faltando -->
-            <a href="{{ route('veiculos.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150">
-                + Adicionar Veículo
-            </a>
+            <div>
+                <a href="{{ route('veiculos.create') }}" class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm"> + Adicionar Veículo</a>
+            </div>
+        </div>      
+
         </div>
     </x-slot>
 
