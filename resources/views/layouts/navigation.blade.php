@@ -100,6 +100,9 @@
     <x-responsive-nav-link :href="route('inspecoes.index')" :active="request()->routeIs('inspecoes.*')">
     {{ __('Inspeções') }}
 </x-responsive-nav-link>
+    <x-responsive-nav-link :href="route('saude.frota')" :active="request()->routeIs('saude.frota')">
+    {{ __('Saúde da Frota') }}
+</x-responsive-nav-link>
 
     
 
