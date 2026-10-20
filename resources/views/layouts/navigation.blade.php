@@ -26,6 +26,9 @@
     <x-nav-link :href="route('manutencoes.index')" :active="request()->routeIs('manutencoes.*')">
         {{ __('Manutenções') }}
     </x-nav-link>
+    <x-nav-link :href="route('oficina.index')" :active="request()->routeIs('oficina.*')">
+    {{ __('Oficina') }}
+</x-nav-link>
     <x-nav-link :href="route('saude.frota')" :active="request()->routeIs('saude.frota')">
     {{ __('Saúde da Frota') }}
 </x-nav-link>
@@ -99,6 +102,9 @@
     </x-nav-link>
     <x-responsive-nav-link :href="route('inspecoes.index')" :active="request()->routeIs('inspecoes.*')">
     {{ __('Inspeções') }}
+</x-responsive-nav-link>
+    <x-responsive-nav-link :href="route('oficina.index')" :active="request()->routeIs('oficina.*')">
+    {{ __('Oficina') }}
 </x-responsive-nav-link>
     <x-responsive-nav-link :href="route('saude.frota')" :active="request()->routeIs('saude.frota')">
     {{ __('Saúde da Frota') }}

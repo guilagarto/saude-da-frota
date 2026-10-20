@@ -6,6 +6,8 @@ use App\Http\Controllers\VeiculoController;
 use App\Http\Controllers\ManutencaoController;
 use App\Http\Controllers\InspecaoController;
 use App\Http\Controllers\SaudeFrotaController;
+use App\Http\Controllers\OficinaAtividadeController;
+use App\Http\Controllers\OficinaOrdemController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,4 +43,20 @@ Route::middleware(['auth'])->group(function () {
 require __DIR__.'/auth.php';
 Route::middleware(['auth'])->group(function () {
     Route::get('/saude-da-frota', [SaudeFrotaController::class, 'index'])->name('saude.frota');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/oficina', [OficinaAtividadeController::class, 'index'])->name('oficina.index');
+    Route::post('/oficina', [OficinaAtividadeController::class, 'store'])->name('oficina.store');
+});
+
+Route::middleware(['auth'])->group(function () {
+    // Rota do formulário adaptável (Esta é a rota que a view está procurando)
+    Route::get('/oficina/atividade/{atividade}/categoria/{categoria}', [OficinaOrdemController::class, 'create'])->name('oficina.ordem.create');
+    
+    // Rota de processamento do formulário no banco
+    Route::post('/oficina/atividade/{atividade}/categoria/{categoria}', [OficinaOrdemController::class, 'store'])->name('oficina.ordem.store');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/oficina/atividade/{id}/saida', [App\Http\Controllers\OficinaAtividadeController::class, 'darSaida'])->name('oficina.saida');
 });
