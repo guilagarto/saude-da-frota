@@ -16,13 +16,16 @@ return new class extends Migration
         // Vincula à atividade da oficina do dia
         $table->foreignId('oficina_atividade_id')->constrained('oficina_atividades')->onDelete('cascade');
         
-        // Identifica qual botão foi clicado
-        $table->string('categoria'); // eletrica, mecanica, lanternagem, borracharia, pintura
+        // Identificadores do item e ação (Campos Cruciais)
+        $table->string('categoria'); // eletrica, mecanica, lanternagem, etc.
+        $table->string('item_chave'); 
+        $table->string('item_label');
+        $table->string('acao'); // Reparar ou Trocar
         
-        // Campos de histórico solicitados
-        $table->string('motivo_manutencao'); // Ex: Curto circuito, Barulho na suspensão
-        $table->text('pecas_trocadas')->nullable(); // Peças substituídas
-        $table->string('status')->default('Pendente'); // Pendente, Em Execução, Concluído
+        // Histórico de motivos e trocas
+        $table->string('motivo')->nullable(); 
+        $table->text('pecas_trocadas')->nullable(); 
+        $table->string('status')->default('Pendente'); 
         
         $table->timestamps();
     });

@@ -60,3 +60,6 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::post('/oficina/atividade/{id}/saida', [App\Http\Controllers\OficinaAtividadeController::class, 'darSaida'])->name('oficina.saida');
 });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/ordens-de-servico', [App\Http\Controllers\OficinaOrdemController::class, 'listaGeral'])->name('oficina.ordens.lista');
+});

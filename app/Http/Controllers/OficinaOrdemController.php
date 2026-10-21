@@ -103,4 +103,28 @@ class OficinaOrdemController extends Controller
         return redirect()->route('oficina.index', ['data' => $atividade->data_atividade])
             ->with('success', 'Histórico e Índices de Saúde atualizados com sucesso!');
     }
+    public function listaGeral(Request $request)
+{
+    $busca = $request->input('busca');
+
+    // Inicia a consulta trazendo os dados do veículo e da atividade vinculada
+    $query = OficinaOrdem::with(['atividade.veiculo'])->latest();
+
+    // Se o usuário digitou algo no campo de busca (Placa, Número ou Peça)
+    if ($request->filled('busca')) {
+        $query->where(function($q) use ($busca) {
+            $q->where('item_label', 'like', '%' . $busca . '%')
+              ->orWhere('motivo', 'like', '%' . $busca . '%')
+              ->orWhere('pecas_trocadas', 'like', '%' . $busca . '%')
+              ->orWhereHas('atividade.veiculo', function($vQuery) use ($busca) {
+                  $vQuery->where('numero', 'like', '%' . $busca . '%')
+                        ->orWhere('placa', 'like', '%' . $busca . '%');
+              });
+        });
+    }
+
+    $ordens = $query->paginate(15);
+
+    return view('oficina.ordens_lista', compact('ordens', 'busca'));
+}
 }

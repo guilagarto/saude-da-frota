@@ -32,6 +32,9 @@
     <x-nav-link :href="route('saude.frota')" :active="request()->routeIs('saude.frota')">
     {{ __('Saúde da Frota') }}
 </x-nav-link>
+<x-nav-link :href="route('oficina.ordens.lista')" :active="request()->routeIs('oficina.ordens.lista')">
+    {{ __('Ordens de Serviço') }}
+</x-nav-link>
 
    
 </div>
@@ -108,6 +111,10 @@
 </x-responsive-nav-link>
     <x-responsive-nav-link :href="route('saude.frota')" :active="request()->routeIs('saude.frota')">
     {{ __('Saúde da Frota') }}
+</x-responsive-nav-link>
+
+    <x-responsive-nav-link :href="route('oficina.ordens.lista')" :active="request()->routeIs('oficina.ordens.lista')">
+    {{ __('Ordens de Serviço') }}
 </x-responsive-nav-link>
 
     
